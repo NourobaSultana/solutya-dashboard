@@ -40,37 +40,40 @@ const cards = [
     percentage: percent4,
   },
 ];
+
 const FourCard = () => {
   return (
     <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-[15px] mt-2 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {cards.map((card) => (
           <div
             key={card.id}
-            className="bg-white border h-[87px] border-[#E8E7EC] rounded-2xl p-4 transition-all duration-300 hover:shadow-md"
+            className="bg-white border min-h-[87px] border-[#E8E7EC] rounded-2xl p-3 sm:p-4 transition-all duration-300 hover:shadow-md"
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 sm:gap-4">
               {/* Left Image */}
               <img
                 src={card.image}
                 alt={card.title}
-                className="w-14 h-14 object-contain"
+                className="w-12 h-12 sm:w-14 sm:h-14 object-contain shrink-0"
               />
 
               {/* Right Content */}
-              <div className="flex-1">
-                <h3 className="text-[14px]  text-[#A7A7A7]">{card.title}</h3>
+              <div className="flex-1 min-w-0">
+                <h3 className="text-[13px] sm:text-[14px] text-[#A7A7A7] truncate">
+                  {card.title}
+                </h3>
 
                 {/* Bottom */}
-                <div className="flex items-center gap-4 ">
-                  <span className="text-[24px] font-medium ]">
+                <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
+                  <span className="text-[20px] sm:text-[24px] font-medium">
                     {card.amount}
                   </span>
 
                   <img
                     src={card.percentage}
                     alt="Member"
-                    className=" object-cover  "
+                    className="object-cover"
                   />
                 </div>
               </div>

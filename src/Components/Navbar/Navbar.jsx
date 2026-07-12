@@ -11,91 +11,74 @@ const Navbar = ({ setIsSidebarOpen }) => {
 
   const options = ["Daily", "Weekly", "Monthly", "Yearly"];
 
-  // 🔹 CLOSE DROPDOWN WHEN CLICKING OUTSIDE
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setOpen(false);
       }
     };
+
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   return (
-    <header className="bg-white w-full ">
-      <div
-        className="
-          px-4 md:px-6 lg:px-8
-          py-4 lg:py-6
-          flex items-center justify-between
-          gap-3
-        "
-      >
-        {/* LEFT SIDE */}
-        <div className="flex items-center gap-3">
-          {/* ☰ SIDEBAR BUTTON (SM & MD ONLY) */}
+    <header className="w-full h-[88px] bg-white border-b border-[#E8E7EC] flex items-center">
+      <div className="w-full px-4 md:px-6 lg:px-8 flex justify-between items-center">
+        {/* LEFT */}
+        <div className="flex items-center gap-4">
+          {/* Mobile Menu */}
           <button
             onClick={() => setIsSidebarOpen(true)}
-            className="lg:hidden w-9 h-9 flex items-center justify-center rounded-md bg-gray-100"
+            className="lg:hidden w-10 h-10 rounded-xl border border-[#E8E7EC] flex justify-center items-center"
           >
             <FaBars />
           </button>
 
-          {/* SEARCH */}
-          <div
-            className="
-              relative
-              w-[160px] sm:w-[220px] md:w-[260px] lg:w-[320px]
-              h-[44px]
-            "
-          >
+          {/* Search */}
+          <div className="relative w-[180px] sm:w-[250px] md:w-[300px] lg:w-[340px]">
             <input
               type="text"
               placeholder="Search here..."
-              className="input input-bordered w-full pr-10 h-full"
+              className="w-full h-12 rounded-2xl  bg-[#FAFAFA] pl-4 pr-12  text-sm"
             />
-            <CiSearch className="absolute right-3 top-1/2 -translate-y-1/2 text-lg text-gray-500 cursor-pointer" />
+
+            <CiSearch className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl text-gray-400" />
           </div>
         </div>
 
-        {/* RIGHT SIDE */}
-        <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-          {/* Bell */}
-          <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-gray-100">
-            <CiBellOn className="text-lg md:text-xl" />
-          </div>
+        {/* RIGHT */}
+        <div className="flex items-center gap-4">
+          {/* Notification */}
+          <button className="w-11 h-11 rounded-full border border-[#F6F6F6] bg-[#F6F6F6] flex justify-center items-center hover:shadow-sm duration-200">
+            <CiBellOn className="text-2xl" />
+          </button>
 
           {/* Message */}
-          <div className="w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-gray-100">
-            <MdOutlineMessage className="text-lg md:text-xl" />
-          </div>
+          <button className="w-11 h-11 rounded-full border border-[#F6F6F6] bg-[#F6F6F6] flex justify-center items-center hover:shadow-sm duration-200">
+            <MdOutlineMessage className="text-xl" />
+          </button>
 
-          {/* DROPDOWN */}
+          {/* Dropdown */}
           <div ref={dropdownRef} className="relative">
             <button
               onClick={() => setOpen(!open)}
-              className="
-                flex items-center gap-1 sm:gap-2
-                px-3 sm:px-4 py-2
-                rounded-full bg-gray-100 hover:bg-gray-200 transition
-              "
+              className="h-11 px-5 border border-[#E8E7EC] rounded-xl flex items-center gap-2 bg-[#F6F6F6] hover:shadow-sm duration-200"
             >
-              <TbCalendarMonth className="text-lg" />
+              <TbCalendarMonth className="text-xl" />
 
-              <span className="hidden sm:block font-medium text-sm">
+              <span className="hidden sm:block text-[15px] font-medium">
                 {value}
               </span>
 
               <FaChevronDown
-                className={`text-xs transition-transform ${
-                  open ? "rotate-180" : ""
-                }`}
+                className={`text-xs transition-all ${open ? "rotate-180" : ""}`}
               />
             </button>
 
             {open && (
-              <ul className="absolute right-0 mt-2 w-36 bg-white border rounded-lg shadow-lg z-50">
+              <ul className="absolute right-0 mt-3 w-40 bg-white rounded-xl border border-[#E8E7EC] shadow-lg overflow-hidden z-50">
                 {options.map((item) => (
                   <li
                     key={item}
@@ -103,7 +86,7 @@ const Navbar = ({ setIsSidebarOpen }) => {
                       setValue(item);
                       setOpen(false);
                     }}
-                    className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+                    className="px-4 py-3 hover:bg-[#F8F8F8] cursor-pointer text-sm"
                   >
                     {item}
                   </li>

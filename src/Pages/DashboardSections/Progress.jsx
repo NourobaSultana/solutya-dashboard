@@ -39,49 +39,36 @@ const projectList = [
 ];
 
 const projects = [
-  {
-    id: 1,
-    image: person1,
-    date: "12 July 2026",
-    progress: 80,
-  },
-  {
-    id: 2,
-    image: person2,
-    date: "18 July 2026",
-    progress: 75,
-  },
-  {
-    id: 3,
-    image: person3,
-    date: "25 July 2026",
-    progress: 50,
-  },
+  { id: 1, image: person1, date: "12 July 2026", progress: 80 },
+  { id: 2, image: person2, date: "18 July 2026", progress: 75 },
+  { id: 3, image: person3, date: "25 July 2026", progress: 50 },
 ];
 
 export default function Progress() {
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-12 gap-[15px] mt-[15px]">
+    <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
       {/* Left */}
-      <div className="xl:col-span-8 bg-white border border-[#E8E7EC] rounded-3xl p-2 h-[274px]">
+      <div className="xl:col-span-8 bg-white border border-[#E8E7EC] rounded-3xl p-2">
         {/* Header */}
-        <div className="flex justify-between items-center  p-2">
-          <h2 className="text-[18px] font-semibold">Projects Progress</h2>
+        <div className="flex flex-wrap justify-between items-center gap-2 p-2">
+          <h2 className="text-[16px] sm:text-[18px] font-semibold">
+            Projects Progress
+          </h2>
 
-          <div className="flex items-center gap-4">
-            <button className="flex h-10 items-center gap-2 rounded-xl border border-[#E8E7EC] bg-white px-4 text-[14px] font-medium text-[#4B5563] shadow-sm transition-all duration-200 hover:border-[#ACC822] hover:text-[#ACC822]">
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
               <span>Recent</span>
               <IoIosArrowDown className="text-sm" />
             </button>
 
-            <button className="text-[#ACC822] text-[14px] font-regular hover:underline">
+            <button className="text-[#ACC822] text-[13px] sm:text-[14px] font-regular hover:underline whitespace-nowrap">
               See All
             </button>
           </div>
         </div>
 
         {/* Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 p-1 gap-4 h-[197px] ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-1 gap-4">
           {projects.map((project) => (
             <div
               key={project.id}
@@ -92,7 +79,7 @@ export default function Progress() {
                 <img
                   src={project.image}
                   alt=""
-                  className="w-full p-2 rounded-2xl h-[122px] object-cover mx-auto"
+                  className="w-full p-2 rounded-2xl h-40 sm:h-36 lg:h-32 object-cover mx-auto"
                 />
 
                 {/* Status */}
@@ -108,32 +95,28 @@ export default function Progress() {
 
               {/* Body */}
               <div className="p-2">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
                   {/* Left */}
                   <div>
                     <p className="text-[12px] text-[#777777]">Due Date:</p>
 
-                    <div className="flex items-center gap-2 ">
-                      <FaCalendarAlt className="" />
-
-                      <p className="text-[14px] font-regular">{project.date}</p>
+                    <div className="flex items-center gap-2">
+                      <FaCalendarAlt />
+                      <p className="text-[13px] sm:text-[14px] font-regular whitespace-nowrap">
+                        {project.date}
+                      </p>
                     </div>
                   </div>
 
                   {/* Progress */}
-                  <div className="w-[32px] h-[32px]">
+                  <div className="w-8 h-8 shrink-0">
                     <CircularProgressbar
                       value={project.progress}
                       text={`${project.progress}%`}
                       strokeWidth={14}
                       styles={{
-                        path: {
-                          stroke: "#ACC822",
-                          strokeLinecap: "round",
-                        },
-                        trail: {
-                          stroke: "#ECECEC",
-                        },
+                        path: { stroke: "#ACC822", strokeLinecap: "round" },
+                        trail: { stroke: "#ECECEC" },
                         text: {
                           fill: "#1F2937",
                           fontSize: "26px",
@@ -150,10 +133,10 @@ export default function Progress() {
       </div>
 
       {/* Right */}
-      <div className="xl:col-span-4 h-[274px] rounded-3xl border border-[#E8E7EC] bg-white p-4 flex flex-col">
+      <div className="xl:col-span-4 rounded-3xl border border-[#E8E7EC] bg-white p-4 flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between pb-2">
-          <h2 className="text-[17px] font-semibold text-[#1F2937]">
+          <h2 className="text-[16px] sm:text-[17px] font-semibold text-[#1F2937]">
             Project Name
           </h2>
 
@@ -173,20 +156,18 @@ export default function Progress() {
               <img
                 src={project.image}
                 alt={project.title}
-                className={`h-10 w-10 rounded-full object-cover ${project.bg}`}
+                className={`h-10 w-10 shrink-0 rounded-full object-cover ${project.bg}`}
               />
 
               {/* Content */}
-              <div>
-                <h3 className="text-[14px] font-semibold leading-none text-[#1F2937]">
+              <div className="min-w-0">
+                <h3 className="text-[14px] font-semibold leading-none text-[#1F2937] truncate">
                   {project.title}
                 </h3>
 
                 <div className="mt-1 flex items-center gap-2 text-[11px] text-[#8B8B8B]">
                   <span>{project.total}</span>
-
-                  <span className="h-1 w-1 rounded-full bg-[#BDBDBD]" />
-
+                  <span className="h-1 w-1 rounded-full bg-[#BDBDBD] shrink-0" />
                   <span>{project.completed}</span>
                 </div>
               </div>

@@ -11,7 +11,76 @@ import {
 import { FiChevronDown } from "react-icons/fi";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { MdArrowOutward } from "react-icons/md";
-import { PieChart, Pie, Cell } from "recharts";
+
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip as ChartTooltip,
+  Legend,
+} from "chart.js";
+
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import { Doughnut } from "react-chartjs-2";
+
+ChartJS.register(ArcElement, ChartTooltip, Legend, ChartDataLabels);
+
+const datas = {
+  labels: ["Facebook", "Dribble", "Instagram", "Twitter"],
+
+  datasets: [
+    {
+      data: [44, 26, 18, 12],
+
+      backgroundColor: ["#8C8C8C", "#1F1F1F", "#C5E71D", "#ACC822"],
+
+      borderColor: "#fff",
+      borderWidth: 0,
+      hoverOffset: 2,
+    },
+  ],
+};
+
+const options = {
+  responsive: true,
+  maintainAspectRatio: false,
+  cutout: "52%",
+
+  plugins: {
+    legend: {
+      display: false,
+    },
+
+    tooltip: {
+      enabled: true,
+    },
+
+    datalabels: {
+      color: "#111",
+      backgroundColor: "#C8E71D",
+      borderColor: "#111",
+      borderWidth: 2,
+      borderRadius: 50,
+
+      padding: {
+        top: 6,
+        bottom: 6,
+        left: 10,
+        right: 10,
+      },
+
+      font: {
+        size: 12,
+        weight: "700",
+      },
+
+      formatter: (value) => `${value}%`,
+
+      offset: 2,
+
+      clip: false,
+    },
+  },
+};
 
 const data = [
   { month: "Jan", value: 800 },
@@ -34,13 +103,6 @@ const data = [
   { month: "Jul", value: 800 },
   { month: "", value: 700 },
   { month: "", value: 600 },
-];
-
-const trafficData = [
-  { name: "Dribble", value: 26, color: "#1F1F1F" },
-  { name: "Instagram", value: 18, color: "#C5E71D" },
-  { name: "Dribbble", value: 12, color: "#ACC822" },
-  { name: "Twitter", value: 44, color: "#8C8C8C" },
 ];
 
 const recentClients = [
@@ -93,28 +155,34 @@ const CustomTooltip = ({ active, payload, label }) => {
 
   return null;
 };
+
 const ProjectsOverview = () => {
   return (
     <div>
       <div
-        className="grid gap-4 mt-4 "
-        style={{ gridTemplateColumns: "2.06fr 1fr 1.12fr" }}
+        className="
+          grid gap-4 
+          grid-cols-1
+          md:grid-cols-2
+          xl:grid-cols-[2.06fr_1fr_1.12fr]
+        "
       >
-        <div>
-          <div className=" flex h-[354px] flex-col rounded-3xl border border-gray-200 bg-white p-4">
+        {/* PROJECT OVERVIEW */}
+        <div className="md:col-span-2 xl:col-span-1">
+          <div className="flex h-full flex-col rounded-3xl border border-gray-200 bg-white p-4">
             {/* Header */}
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-[18px] font-semibold text-[#1B1B1B]">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+              <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#1B1B1B]">
                 Project Overview
               </h2>
 
-              <div className="flex items-center gap-2">
-                <button className="flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+              <div className="flex flex-wrap items-center gap-2">
+                <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
                   Yearly
                   <FiChevronDown size={16} />
                 </button>
 
-                <button className="flex items-center gap-2 rounded-xl border border-gray-200 px-3 py-2 text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+                <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
                   View Report
                   <MdArrowOutward size={16} />
                 </button>
@@ -172,7 +240,14 @@ const ProjectsOverview = () => {
                     tick={{ fill: "#7A7A7A", fontSize: 12 }}
                   />
 
-                  <Tooltip content={<CustomTooltip />} cursor={false} />
+                  <Tooltip
+                    content={<CustomTooltip />}
+                    cursor={{
+                      stroke: "#ACC822",
+                      strokeWidth: 1,
+                      strokeDasharray: "4 4",
+                    }}
+                  />
 
                   <Area
                     type="monotone"
@@ -181,129 +256,102 @@ const ProjectsOverview = () => {
                     strokeWidth={2}
                     fill="url(#projectGradient)"
                     dot={false}
-                    activeDot={false}
+                    activeDot={{
+                      r: 6,
+                      fill: "#ACC822",
+                      stroke: "#fff",
+                      strokeWidth: 3,
+                      style: {
+                        cursor: "pointer",
+                      },
+                    }}
                   />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </div>
         </div>
-        <div className="">
-          <div className="h-[354px] rounded-3xl border border-[#E8E7EC] bg-white p-4 flex flex-col">
-            {/* Header */}
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-[18px] font-semibold text-[#1F2937]">
-                Recent Clients
-              </h2>
 
-              <button className="text-[14px] font-medium text-[#ACC822] transition hover:underline">
-                See All
-              </button>
-            </div>
+        {/* RECENT CLIENTS */}
+        <div className="h-full rounded-3xl border border-[#E8E7EC] bg-white p-4 sm:p-5 shadow-sm flex flex-col">
+          {/* Header */}
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="text-base sm:text-lg font-semibold text-[#1F2937]">
+              Recent Clients
+            </h2>
 
-            {/* Client List */}
-            <div className="flex-1 space-y-1 overflow-hidden">
-              {recentClients.map((client) => (
-                <div
-                  key={client.id}
-                  className="flex items-center gap-1 rounded-2xl p-1 transition-all duration-300 hover:bg-[#F7F8F5] cursor-pointer"
-                >
-                  {/* Avatar */}
-                  <img
-                    src={client.image}
-                    alt={client.name}
-                    className="h-11 w-11 rounded-full object-cover"
-                  />
+            <button className="text-sm font-medium text-[#ACC822] transition-colors hover:text-[#8FB500]">
+              See All
+            </button>
+          </div>
 
-                  {/* Content */}
-                  <div className="flex flex-col">
-                    <h3 className="text-[15px] font-semibold text-[#1F2937]">
-                      {client.name}
-                    </h3>
+          {/* Client List */}
+          <div className="flex-1 space-y-2 overflow-y-auto pr-1">
+            {recentClients.map((client) => (
+              <div
+                key={client.id}
+                className="flex items-center gap-3 rounded-2xl p-2 transition-all duration-300 hover:bg-[#F7F8F5] cursor-pointer"
+              >
+                {/* Avatar */}
+                <img
+                  src={client.image}
+                  alt={client.name}
+                  className="h-11 w-11 rounded-full object-cover flex-shrink-0"
+                />
 
-                    <p className="mt-0.5 text-[12px] text-[#9CA3AF]">
-                      {client.time}
-                    </p>
-                  </div>
+                {/* Content */}
+                <div className="min-w-0 flex-1">
+                  <h3 className="truncate text-sm sm:text-[15px] font-semibold text-[#1F2937]">
+                    {client.name}
+                  </h3>
+
+                  <p className="mt-0.5 text-xs text-[#9CA3AF]">{client.time}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
-        <div>
-          <div className="h-[354px] rounded-3xl border border-[#E8E7EC] bg-white p-4 shadow-sm">
-            {/* Header */}
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-[18px] font-semibold text-[#1F2937]">
-                Top Traffic
-              </h2>
 
-              <button className="flex items-center gap-2 rounded-xl border border-[#E8E7EC] px-3 py-2 text-[13px] font-medium text-[#444] transition hover:border-[#ACC822] hover:text-[#ACC822]">
-                Weekly
-                <FiChevronDown size={15} />
-              </button>
+        {/* TOP TRAFFIC */}
+        <div className="rounded-3xl border border-[#E8E7EC] bg-white p-5 shadow-sm">
+          {/* Header */}
+
+          <div className="mb-5 flex items-center justify-between">
+            <h2 className="text-[18px] font-semibold">Top Traffic</h2>
+
+            <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+              Weekly
+              <FiChevronDown size={16} />
+            </button>
+          </div>
+
+          {/* Chart */}
+
+          <div className="mx-auto h-[220px] w-[220px]">
+            <Doughnut data={datas} options={options} />
+          </div>
+
+          {/* Legend */}
+
+          <div className="mt-8 grid grid-cols-2 gap-y-4">
+            <div className="flex items-center gap-3">
+              <span className="h-3.5 w-3.5 rounded bg-[#B7D71A]" />
+              <p className="text-[#767676]">Facebook</p>
             </div>
 
-            {/* Chart */}
-            <div className="relative mx-auto h-[170px] w-[170px]">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={trafficData}
-                    innerRadius={38}
-                    outerRadius={70}
-                    paddingAngle={3}
-                    dataKey="value"
-                    stroke="none"
-                  >
-                    {trafficData.map((entry, index) => (
-                      <Cell key={index} fill={entry.color} />
-                    ))}
-                  </Pie>
-                </PieChart>
-              </ResponsiveContainer>
-
-              {/* Percentage Labels */}
-
-              <span className="absolute border border-black left-2 top-5 rounded-full bg-[#ACC822] px-2 py-1 text-[11px] font-semibold">
-                18%
-              </span>
-
-              <span className="absolute right-0 border border-black top-14 rounded-full bg-[#ACC822] px-2 py-1 text-[11px] font-semibold">
-                26%
-              </span>
-
-              <span className="absolute border border-black bottom-4 right-5 rounded-full bg-[#ACC822] px-2 py-1 text-[11px] font-semibold">
-                44%
-              </span>
-
-              <span className="absolute border border-black bottom-17 -left-2 rounded-full bg-[#ACC822] px-2 py-1 text-[11px] font-semibold">
-                12%
-              </span>
+            <div className="flex items-center gap-3">
+              <span className="h-3.5 w-3.5 rounded bg-[#232323]" />
+              <p className="text-[#767676]">Dribbble</p>
             </div>
 
-            {/* Legend */}
+            <div className="flex items-center gap-3">
+              <span className="h-3.5 w-3.5 rounded bg-[#D6F521]" />
+              <p className="text-[#767676]">Instagram</p>
+            </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-y-4 px-2">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded bg-[#ACC822]" />
-                <span className="text-[14px] text-[#7B7B7B]">Facebook</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded bg-[#1F1F1F]" />
-                <span className="text-[14px] text-[#7B7B7B]">Dribbble</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded bg-[#C5E71D]" />
-                <span className="text-[14px] text-[#7B7B7B]">Instagram</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded bg-[#8D8D8D]" />
-                <span className="text-[14px] text-[#8C8C8C]">Twitter</span>
-              </div>
+            <div className="flex items-center gap-3">
+              <span className="h-3.5 w-3.5 rounded bg-[#AFAFAF]" />
+              <p className="text-[#767676]">Twitter</p>
             </div>
           </div>
         </div>
