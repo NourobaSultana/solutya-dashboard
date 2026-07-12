@@ -25,7 +25,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, ChartTooltip, Legend, ChartDataLabels);
 
 const datas = {
-  labels: ["Twitter", "Facebook", "Instagram", "Twitter"],
+  labels: ["Twitter", "Dribble", "Instagram", "Facebook"],
 
   datasets: [
     {
@@ -190,14 +190,14 @@ const ProjectsOverview = () => {
             </div>
 
             {/* Graph */}
-            <div className="min-h-0 flex-1">
+            <div className="w-full h-[260px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart
                   data={data}
                   margin={{
-                    top: 8,
+                    top: 10,
                     right: 10,
-                    left: -18,
+                    left: 0,
                     bottom: 0,
                   }}
                 >
@@ -228,16 +228,16 @@ const ProjectsOverview = () => {
                     dataKey="month"
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fill: "#7A7A7A", fontSize: 12 }}
+                    tick={{ fill: "#7A7A7A", fontSize: 11 }}
                   />
 
                   <YAxis
+                    width={35}
                     domain={[0, 1600]}
-                    ticks={[0, 100, 200, 400, 600, 800, 1000, 1600]}
-                    interval={0}
+                    ticks={[0, 400, 800, 1200, 1600]}
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fill: "#7A7A7A", fontSize: 12 }}
+                    tick={{ fill: "#7A7A7A", fontSize: 11 }}
                   />
 
                   <Tooltip
@@ -257,13 +257,10 @@ const ProjectsOverview = () => {
                     fill="url(#projectGradient)"
                     dot={false}
                     activeDot={{
-                      r: 6,
+                      r: 5,
                       fill: "#ACC822",
                       stroke: "#fff",
-                      strokeWidth: 3,
-                      style: {
-                        cursor: "pointer",
-                      },
+                      strokeWidth: 2,
                     }}
                   />
                 </AreaChart>
