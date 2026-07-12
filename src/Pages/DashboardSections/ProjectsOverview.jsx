@@ -25,7 +25,7 @@ import { Doughnut } from "react-chartjs-2";
 ChartJS.register(ArcElement, ChartTooltip, Legend, ChartDataLabels);
 
 const datas = {
-  labels: ["Facebook", "Dribble", "Instagram", "Twitter"],
+  labels: ["Twitter", "Facebook", "Instagram", "Twitter"],
 
   datasets: [
     {
@@ -169,7 +169,7 @@ const ProjectsOverview = () => {
       >
         {/* PROJECT OVERVIEW */}
         <div className="md:col-span-2 xl:col-span-1">
-          <div className="flex h-full flex-col rounded-3xl border border-gray-200 bg-white p-4">
+          <div className="flex h-full flex-col rounded-tl-3xl rounded-tr-3xl rounded-br-3xl border border-gray-200 bg-white p-4">
             {/* Header */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#1B1B1B]">

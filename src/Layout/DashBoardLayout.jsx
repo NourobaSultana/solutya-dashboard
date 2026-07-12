@@ -3,6 +3,7 @@ import Navbar from "../Components/Navbar/Navbar";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import Dashboard from "../Pages/Dashboard";
 import { ThemeProvider } from "../Components/ThemeProvider/ThemeProvider";
+import Footer from "../Components/Footer/Footer";
 
 const DashBoardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,11 +19,12 @@ const DashBoardLayout = () => {
             <div className="min-w-0 flex flex-col">
               <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
-              <main className="w-full p-6">
+              <main className="w-full px-4 mt-4 ">
                 <Dashboard />
               </main>
             </div>
           </div>
+          <Footer></Footer>
         </div>
       </div>
     </ThemeProvider>
