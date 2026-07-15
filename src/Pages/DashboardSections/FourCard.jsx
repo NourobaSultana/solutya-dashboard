@@ -9,6 +9,7 @@ import percent1 from "../../assets/Fourcard/Percentage/1.png";
 import percent2 from "../../assets/Fourcard/Percentage/2.png";
 import percent3 from "../../assets/Fourcard/Percentage/3.png";
 import percent4 from "../../assets/Fourcard/Percentage/4.png";
+import { useTheme } from "../../Components/ThemeProvider/ThemeProvider";
 
 const cards = [
   {
@@ -42,13 +43,15 @@ const cards = [
 ];
 
 const FourCard = () => {
+  const { darkMode } = useTheme();
   return (
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {cards.map((card) => (
           <div
             key={card.id}
-            className="bg-white border min-h-[87px] border-[#E8E7EC] rounded-2xl p-3 sm:p-4 transition-all duration-300 hover:shadow-md"
+            className={`min-h-[87px] rounded-2xl border p-3 sm:p-4 transition-all duration-300 hover:shadow-md
+${darkMode ? "bg-[#1F2937] border-gray-700" : "bg-white border-[#E8E7EC]"}`}
           >
             <div className="flex items-center gap-3 sm:gap-4">
               {/* Left Image */}
@@ -60,13 +63,19 @@ const FourCard = () => {
 
               {/* Right Content */}
               <div className="flex-1 min-w-0">
-                <h3 className="text-[13px] sm:text-[14px] text-[#A7A7A7] truncate">
+                <h3
+                  className={`text-[13px] sm:text-[14px] truncate
+${darkMode ? "text-gray-400" : "text-[#777777]"}`}
+                >
                   {card.title}
                 </h3>
 
                 {/* Bottom */}
                 <div className="flex items-center gap-2 sm:gap-4 flex-wrap">
-                  <span className="text-[20px] sm:text-[24px] font-medium">
+                  <span
+                    className={`text-[20px] sm:text-[24px] font-medium
+${darkMode ? "text-white" : "text-[#1F2937]"}`}
+                  >
                     {card.amount}
                   </span>
 

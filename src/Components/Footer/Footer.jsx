@@ -1,9 +1,14 @@
 import React from "react";
 import { FiPhone, FiMail, FiMapPin, FiBriefcase } from "react-icons/fi";
+import { useTheme } from "../ThemeProvider/ThemeProvider";
 
 const Footer = () => {
+  const { darkMode } = useTheme();
   return (
-    <footer className="mt-4 sm:mt-6 rounded-2xl sm:rounded-3xl border border-[#E8E7EC] bg-white overflow-hidden">
+    <footer
+      className={`mt-4 sm:mt-6 r  border overflow-hidden transition-colors duration-300
+    ${darkMode ? "bg-[#1F2937] border-gray-700" : "bg-white border-[#E8E7EC]"}`}
+    >
       <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-10 lg:py-10">
         {/* Top */}
         <div className="grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 xl:grid-cols-3">
@@ -11,21 +16,33 @@ const Footer = () => {
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
             <div className="mb-5 flex items-center gap-3">
               <div className="flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-2xl bg-[#ACC822]/15">
-                <FiBriefcase className="text-[#ACC822] text-xl sm:text-2xl" />
+                <FiBriefcase className="text-xl sm:text-2xl text-[#ACC822]" />
               </div>
 
               <div>
-                <h2 className="text-lg sm:text-xl font-bold text-[#1B1B1B]">
+                <h2
+                  className={`text-lg sm:text-xl font-bold ${
+                    darkMode ? "text-white" : "text-[#1B1B1B]"
+                  }`}
+                >
                   Solutya Pvt. Ltd.
                 </h2>
 
-                <p className="text-xs sm:text-sm text-[#767676]">
+                <p
+                  className={`text-xs sm:text-sm ${
+                    darkMode ? "text-gray-400" : "text-[#767676]"
+                  }`}
+                >
                   Innovative Digital Solutions
                 </p>
               </div>
             </div>
 
-            <p className="max-w-md text-sm leading-7 text-[#767676]">
+            <p
+              className={`max-w-md text-sm leading-7 ${
+                darkMode ? "text-gray-400" : "text-[#767676]"
+              }`}
+            >
               We build modern digital products with innovative technology and
               user-focused solutions that help businesses grow.
             </p>
@@ -33,7 +50,11 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
-            <h3 className="mb-5 text-lg font-semibold text-[#1B1B1B]">
+            <h3
+              className={`mb-5 text-lg font-semibold ${
+                darkMode ? "text-white" : "text-[#1B1B1B]"
+              }`}
+            >
               Contact
             </h3>
 
@@ -45,8 +66,19 @@ const Footer = () => {
                 </div>
 
                 <div>
-                  <p className="text-xs text-[#767676]">Phone</p>
-                  <p className="text-sm sm:text-base font-medium text-[#1B1B1B]">
+                  <p
+                    className={`text-xs ${
+                      darkMode ? "text-gray-400" : "text-[#767676]"
+                    }`}
+                  >
+                    Phone
+                  </p>
+
+                  <p
+                    className={`text-sm sm:text-base font-medium ${
+                      darkMode ? "text-white" : "text-[#1B1B1B]"
+                    }`}
+                  >
                     01329659900
                   </p>
                 </div>
@@ -59,9 +91,19 @@ const Footer = () => {
                 </div>
 
                 <div className="min-w-0">
-                  <p className="text-xs text-[#767676]">Email</p>
+                  <p
+                    className={`text-xs ${
+                      darkMode ? "text-gray-400" : "text-[#767676]"
+                    }`}
+                  >
+                    Email
+                  </p>
 
-                  <p className="break-all text-sm sm:text-base font-medium text-[#1B1B1B]">
+                  <p
+                    className={`break-all text-sm sm:text-base font-medium ${
+                      darkMode ? "text-white" : "text-[#1B1B1B]"
+                    }`}
+                  >
                     contact@solutya.com
                   </p>
                 </div>
@@ -71,7 +113,11 @@ const Footer = () => {
 
           {/* Address */}
           <div className="flex flex-col items-center text-center md:items-start md:text-left md:col-span-2 xl:col-span-1">
-            <h3 className="mb-5 text-lg font-semibold text-[#1B1B1B]">
+            <h3
+              className={`mb-5 text-lg font-semibold ${
+                darkMode ? "text-white" : "text-[#1B1B1B]"
+              }`}
+            >
               Office Address
             </h3>
 
@@ -80,7 +126,11 @@ const Footer = () => {
                 <FiMapPin className="text-[#ACC822]" />
               </div>
 
-              <p className="text-sm leading-7 text-[#767676]">
+              <p
+                className={`text-sm leading-7 ${
+                  darkMode ? "text-gray-400" : "text-[#767676]"
+                }`}
+              >
                 House 1/C (Opposite Building of Zirkon Tower, Level-5), Road-02,
                 Sector-03, Uttara, Dhaka-1230, Bangladesh.
               </p>
@@ -89,11 +139,23 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-8 border-t border-[#E8E7EC] pt-5">
+        <div
+          className={`mt-8 pt-5 border-t ${
+            darkMode ? "border-gray-700" : "border-[#E8E7EC]"
+          }`}
+        >
           <div className="flex flex-col items-center justify-center gap-4 md:flex-row md:justify-between">
-            <p className="text-center md:text-left text-sm leading-6 text-[#767676]">
+            <p
+              className={`text-center md:text-left text-sm leading-6 ${
+                darkMode ? "text-gray-400" : "text-[#767676]"
+              }`}
+            >
               © {new Date().getFullYear()}{" "}
-              <span className="font-semibold text-[#1B1B1B]">
+              <span
+                className={`font-semibold ${
+                  darkMode ? "text-white" : "text-[#1B1B1B]"
+                }`}
+              >
                 Solutya Pvt. Ltd.
               </span>{" "}
               All rights reserved.

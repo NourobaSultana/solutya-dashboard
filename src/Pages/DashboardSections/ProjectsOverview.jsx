@@ -21,10 +21,11 @@ import {
 
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { Doughnut } from "react-chartjs-2";
+import { useTheme } from "../../Components/ThemeProvider/ThemeProvider";
 
 ChartJS.register(ArcElement, ChartTooltip, Legend, ChartDataLabels);
 
-const datas = {
+const getData = (darkMode) => ({
   labels: ["Twitter", "Dribble", "Instagram", "Facebook"],
 
   datasets: [
@@ -33,14 +34,14 @@ const datas = {
 
       backgroundColor: ["#8C8C8C", "#1F1F1F", "#C5E71D", "#ACC822"],
 
-      borderColor: "#fff",
+      borderColor: darkMode ? "#1F2937" : "#fff",
       borderWidth: 0,
       hoverOffset: 2,
     },
   ],
-};
+});
 
-const options = {
+const getOptions = (darkMode) => ({
   responsive: true,
   maintainAspectRatio: false,
   cutout: "52%",
@@ -48,6 +49,9 @@ const options = {
   plugins: {
     legend: {
       display: false,
+      labels: {
+        color: darkMode ? "#FFFFFF" : "#1F2937",
+      },
     },
 
     tooltip: {
@@ -55,9 +59,9 @@ const options = {
     },
 
     datalabels: {
-      color: "#111",
+      color: darkMode ? "#FFFFFF" : "#111111",
       backgroundColor: "#C8E71D",
-      borderColor: "#111",
+      borderColor: darkMode ? "#FFFFFF" : "#111111",
       borderWidth: 2,
       borderRadius: 50,
 
@@ -76,11 +80,10 @@ const options = {
       formatter: (value) => `${value}%`,
 
       offset: 2,
-
       clip: false,
     },
   },
-};
+});
 
 const data = [
   { month: "Jan", value: 800 },
@@ -139,6 +142,7 @@ const recentClients = [
 ];
 
 const CustomTooltip = ({ active, payload, label }) => {
+  const { darkMode } = useTheme();
   if (active && payload && payload.length) {
     return (
       <div className="rounded-xl bg-black px-3 py-2 shadow-lg">
@@ -157,6 +161,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const ProjectsOverview = () => {
+  const { darkMode } = useTheme();
   return (
     <div>
       <div
@@ -169,20 +174,44 @@ const ProjectsOverview = () => {
       >
         {/* PROJECT OVERVIEW */}
         <div className="md:col-span-2 xl:col-span-1">
-          <div className="flex h-full flex-col rounded-tl-3xl rounded-tr-3xl rounded-br-3xl border border-gray-200 bg-white p-4">
+          <div
+            className={`flex h-full flex-col rounded-tl-3xl rounded-tr-3xl rounded-br-3xl border p-4 transition-colors duration-300 ${
+              darkMode
+                ? "bg-[#1F2937] border-gray-700"
+                : "bg-white border-[#E8E7EC]"
+            }`}
+          >
             {/* Header */}
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-              <h2 className="text-[16px] sm:text-[18px] font-semibold text-[#1B1B1B]">
+              <h2
+                className={`text-[16px] sm:text-[18px] font-semibold ${
+                  darkMode ? "text-white" : "text-[#1B1B1B]"
+                }`}
+              >
                 Project Overview
               </h2>
 
               <div className="flex flex-wrap items-center gap-2">
-                <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+                {/* Yearly */}
+                <button
+                  className={`flex items-center gap-1.5 sm:gap-2 rounded-xl border px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium transition ${
+                    darkMode
+                      ? "border-gray-700 bg-[#111827] text-gray-200 hover:bg-[#374151]"
+                      : "border-gray-200 bg-white text-[#252525] hover:bg-gray-50"
+                  }`}
+                >
                   Yearly
                   <FiChevronDown size={16} />
                 </button>
 
-                <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+                {/* View Report */}
+                <button
+                  className={`flex items-center gap-1.5 sm:gap-2 rounded-xl border px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium transition ${
+                    darkMode
+                      ? "border-gray-700 bg-[#111827] text-gray-200 hover:bg-[#374151]"
+                      : "border-gray-200 bg-white text-[#252525] hover:bg-gray-50"
+                  }`}
+                >
                   View Report
                   <MdArrowOutward size={16} />
                 </button>
@@ -219,7 +248,7 @@ const ProjectsOverview = () => {
                   </defs>
 
                   <CartesianGrid
-                    stroke="#ECECEC"
+                    stroke={darkMode ? "#374151" : "#ECECEC"}
                     strokeDasharray="5 5"
                     vertical={false}
                   />
@@ -228,7 +257,10 @@ const ProjectsOverview = () => {
                     dataKey="month"
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fill: "#7A7A7A", fontSize: 11 }}
+                    tick={{
+                      fill: darkMode ? "#9CA3AF" : "#7A7A7A",
+                      fontSize: 11,
+                    }}
                   />
 
                   <YAxis
@@ -237,7 +269,10 @@ const ProjectsOverview = () => {
                     ticks={[0, 400, 800, 1200, 1600]}
                     tickLine={false}
                     axisLine={false}
-                    tick={{ fill: "#7A7A7A", fontSize: 11 }}
+                    tick={{
+                      fill: darkMode ? "#9CA3AF" : "#7A7A7A",
+                      fontSize: 11,
+                    }}
                   />
 
                   <Tooltip
@@ -259,7 +294,7 @@ const ProjectsOverview = () => {
                     activeDot={{
                       r: 5,
                       fill: "#ACC822",
-                      stroke: "#fff",
+                      stroke: darkMode ? "#1F2937" : "#FFFFFF",
                       strokeWidth: 2,
                     }}
                   />
@@ -270,10 +305,20 @@ const ProjectsOverview = () => {
         </div>
 
         {/* RECENT CLIENTS */}
-        <div className="h-full rounded-3xl border border-[#E8E7EC] bg-white p-4 sm:p-5 shadow-sm flex flex-col">
+        <div
+          className={`h-full rounded-3xl border p-4 sm:p-5 shadow-sm flex flex-col transition-colors duration-300 ${
+            darkMode
+              ? "bg-[#1F2937] border-gray-700"
+              : "bg-white border-[#E8E7EC]"
+          }`}
+        >
           {/* Header */}
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base sm:text-lg font-semibold text-[#1F2937]">
+            <h2
+              className={`text-base sm:text-lg font-semibold ${
+                darkMode ? "text-white" : "text-[#1F2937]"
+              }`}
+            >
               Recent Clients
             </h2>
 
@@ -287,7 +332,9 @@ const ProjectsOverview = () => {
             {recentClients.map((client) => (
               <div
                 key={client.id}
-                className="flex items-center gap-3 rounded-2xl p-2 transition-all duration-300 hover:bg-[#F7F8F5] cursor-pointer"
+                className={`flex items-center gap-3 rounded-2xl p-2 cursor-pointer transition-all duration-300 ${
+                  darkMode ? "hover:bg-[#374151]" : "hover:bg-[#F7F8F5]"
+                }`}
               >
                 {/* Avatar */}
                 <img
@@ -298,11 +345,21 @@ const ProjectsOverview = () => {
 
                 {/* Content */}
                 <div className="min-w-0 flex-1">
-                  <h3 className="truncate text-sm sm:text-[15px] font-semibold text-[#1F2937]">
+                  <h3
+                    className={`truncate text-sm sm:text-[15px] font-semibold ${
+                      darkMode ? "text-white" : "text-[#1F2937]"
+                    }`}
+                  >
                     {client.name}
                   </h3>
 
-                  <p className="mt-0.5 text-xs text-[#9CA3AF]">{client.time}</p>
+                  <p
+                    className={`mt-0.5 text-xs ${
+                      darkMode ? "text-gray-400" : "text-[#9CA3AF]"
+                    }`}
+                  >
+                    {client.time}
+                  </p>
                 </div>
               </div>
             ))}
@@ -310,45 +367,76 @@ const ProjectsOverview = () => {
         </div>
 
         {/* TOP TRAFFIC */}
-        <div className="rounded-3xl border border-[#E8E7EC] bg-white p-5 shadow-sm">
+        <div
+          className={`rounded-3xl border p-5 shadow-sm transition-colors duration-300 ${
+            darkMode
+              ? "bg-[#1F2937] border-gray-700"
+              : "bg-white border-[#E8E7EC]"
+          }`}
+        >
           {/* Header */}
-
           <div className="mb-5 flex items-center justify-between">
-            <h2 className="text-[18px] font-semibold">Top Traffic</h2>
+            <h2
+              className={`text-[18px] font-semibold ${
+                darkMode ? "text-white" : "text-[#1F2937]"
+              }`}
+            >
+              Top Traffic
+            </h2>
 
-            <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+            <button
+              className={`flex items-center gap-1.5 sm:gap-2 rounded-xl border px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium transition ${
+                darkMode
+                  ? "border-gray-700 bg-[#111827] text-gray-200 hover:bg-[#374151]"
+                  : "border-gray-200 bg-white text-[#252525] hover:bg-gray-50"
+              }`}
+            >
               Weekly
               <FiChevronDown size={16} />
             </button>
           </div>
 
           {/* Chart */}
-
           <div className="mx-auto h-[220px] w-[220px]">
-            <Doughnut data={datas} options={options} />
+            <Doughnut data={getData(darkMode)} options={getOptions(darkMode)} />
           </div>
 
           {/* Legend */}
-
           <div className="mt-8 grid grid-cols-2 gap-y-4">
             <div className="flex items-center gap-3">
               <span className="h-3.5 w-3.5 rounded bg-[#B7D71A]" />
-              <p className="text-[#767676]">Facebook</p>
+              <p className={darkMode ? "text-gray-400" : "text-[#767676]"}>
+                Facebook
+              </p>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="h-3.5 w-3.5 rounded bg-[#232323]" />
-              <p className="text-[#767676]">Dribbble</p>
+              <span
+                className={`h-3.5 w-3.5 rounded ${
+                  darkMode ? "bg-gray-300" : "bg-[#232323]"
+                }`}
+              />
+              <p className={darkMode ? "text-gray-400" : "text-[#767676]"}>
+                Dribbble
+              </p>
             </div>
 
             <div className="flex items-center gap-3">
               <span className="h-3.5 w-3.5 rounded bg-[#D6F521]" />
-              <p className="text-[#767676]">Instagram</p>
+              <p className={darkMode ? "text-gray-400" : "text-[#767676]"}>
+                Instagram
+              </p>
             </div>
 
             <div className="flex items-center gap-3">
-              <span className="h-3.5 w-3.5 rounded bg-[#AFAFAF]" />
-              <p className="text-[#767676]">Twitter</p>
+              <span
+                className={`h-3.5 w-3.5 rounded ${
+                  darkMode ? "bg-gray-500" : "bg-[#AFAFAF]"
+                }`}
+              />
+              <p className={darkMode ? "text-gray-400" : "text-[#767676]"}>
+                Twitter
+              </p>
             </div>
           </div>
         </div>

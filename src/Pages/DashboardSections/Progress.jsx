@@ -10,6 +10,7 @@ import person3 from "../../assets/Project_Person/person3.avif";
 
 import project1 from "../../assets/Fourcard/star-image/Element.png";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import { useTheme } from "../../Components/ThemeProvider/ThemeProvider";
 
 const projectList = [
   {
@@ -45,18 +46,32 @@ const projects = [
 ];
 
 export default function Progress() {
+  const { darkMode } = useTheme();
   return (
     <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
       {/* Left */}
-      <div className="xl:col-span-8 bg-white border border-[#E8E7EC] rounded-3xl p-2">
+      <div
+        className={`xl:col-span-8 rounded-3xl border p-2 transition-colors duration-300
+${darkMode ? "bg-[#1F2937] border-gray-700" : "bg-white border-[#E8E7EC]"}`}
+      >
         {/* Header */}
         <div className="flex flex-wrap justify-between items-center gap-2 p-2">
-          <h2 className="text-[16px] sm:text-[18px] font-semibold">
+          <h2
+            className={`text-[16px] sm:text-[18px] font-semibold
+${darkMode ? "text-white" : "text-[#1F2937]"}`}
+          >
             Projects Progress
           </h2>
 
           <div className="flex items-center gap-2 sm:gap-4">
-            <button className="flex items-center gap-1.5 sm:gap-2 rounded-xl border border-gray-200 px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium text-[#252525] transition hover:bg-gray-50">
+            <button
+              className={`flex items-center gap-1.5 sm:gap-2 rounded-xl border px-2.5 sm:px-3 py-1.5 sm:py-2 text-[12px] sm:text-[13px] font-medium transition
+${
+  darkMode
+    ? "border-gray-700 bg-[#111827] text-gray-200 hover:bg-[#374151]"
+    : "border-gray-200 bg-white text-[#252525] hover:bg-gray-50"
+}`}
+            >
               <span>Recent</span>
               <IoIosArrowDown className="text-sm" />
             </button>
@@ -72,7 +87,8 @@ export default function Progress() {
           {projects.map((project) => (
             <div
               key={project.id}
-              className="rounded-2xl p-2 border border-[#E8E7EC] overflow-hidden hover:shadow-lg transition"
+              className={`rounded-2xl p-2 border overflow-hidden transition hover:shadow-lg
+${darkMode ? "bg-[#111827] border-gray-700" : "bg-white border-[#E8E7EC]"}`}
             >
               {/* Image */}
               <div className="relative">
@@ -98,11 +114,23 @@ export default function Progress() {
                 <div className="flex justify-between items-center">
                   {/* Left */}
                   <div>
-                    <p className="text-[12px] text-[#777777]">Due Date:</p>
+                    <p
+                      className={`text-[12px]
+${darkMode ? "text-gray-400" : "text-[#777777]"}`}
+                    >
+                      Due Date:
+                    </p>
 
                     <div className="flex items-center gap-2">
-                      <FaCalendarAlt />
-                      <p className="text-[13px] sm:text-[14px] font-regular whitespace-nowrap">
+                      <FaCalendarAlt
+                        className={
+                          darkMode ? "text-gray-300" : "text-[#1F2937]"
+                        }
+                      />
+                      <p
+                        className={`text-[13px] sm:text-[14px] whitespace-nowrap
+${darkMode ? "text-white" : "text-[#1F2937]"}`}
+                      >
                         {project.date}
                       </p>
                     </div>
@@ -116,9 +144,9 @@ export default function Progress() {
                       strokeWidth={14}
                       styles={{
                         path: { stroke: "#ACC822", strokeLinecap: "round" },
-                        trail: { stroke: "#ECECEC" },
+                        trail: { stroke: darkMode ? "#374151" : "#ECECEC" },
                         text: {
-                          fill: "#1F2937",
+                          fill: darkMode ? "#FFFFFF" : "#1F2937",
                           fontSize: "26px",
                           fontWeight: "600",
                         },
@@ -133,10 +161,16 @@ export default function Progress() {
       </div>
 
       {/* Right */}
-      <div className="xl:col-span-4 rounded-3xl border border-[#E8E7EC] bg-white p-4 flex flex-col">
+      <div
+        className={`xl:col-span-4 rounded-3xl border p-4 flex flex-col transition-colors duration-300
+${darkMode ? "bg-[#1F2937] border-gray-700" : "bg-white border-[#E8E7EC]"}`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between pb-2">
-          <h2 className="text-[16px] sm:text-[17px] font-semibold text-[#1F2937]">
+          <h2
+            className={`text-[16px] sm:text-[17px] font-semibold
+${darkMode ? "text-white" : "text-[#1F2937]"}`}
+          >
             Project Name
           </h2>
 
@@ -150,7 +184,8 @@ export default function Progress() {
           {projectList.map((project) => (
             <div
               key={project.id}
-              className="flex items-center gap-3 rounded-xl px-2 py-1.5 transition-all duration-300 hover:bg-[#F7F8F5] cursor-pointer"
+              className={`flex items-center gap-3 rounded-xl px-2 py-1.5 transition-all duration-300 cursor-pointer
+${darkMode ? "hover:bg-[#374151]" : "hover:bg-[#F7F8F5]"}`}
             >
               {/* Image */}
               <img
@@ -161,11 +196,17 @@ export default function Progress() {
 
               {/* Content */}
               <div className="min-w-0">
-                <h3 className="text-[14px] font-semibold leading-none text-[#1F2937] truncate">
+                <h3
+                  className={`text-[14px] font-semibold leading-none truncate
+${darkMode ? "text-white" : "text-[#1F2937]"}`}
+                >
                   {project.title}
                 </h3>
 
-                <div className="mt-1 flex items-center gap-2 text-[11px] text-[#8B8B8B]">
+                <div
+                  className={`mt-1 flex items-center gap-2 text-[11px]
+${darkMode ? "text-gray-400" : "text-[#8B8B8B]"}`}
+                >
                   <span>{project.total}</span>
                   <span className="h-1 w-1 rounded-full bg-[#BDBDBD] shrink-0" />
                   <span>{project.completed}</span>
@@ -177,14 +218,20 @@ export default function Progress() {
 
         {/* Create Project */}
         <div className="pt-1">
-          <div className="flex items-center gap-3 rounded-xl px-2 py-1.5 transition-all duration-300 hover:bg-[#F7F8F5] cursor-pointer">
+          <div
+            className={`flex items-center gap-3 rounded-xl px-2 py-1.5 transition-all duration-300 cursor-pointer
+${darkMode ? "hover:bg-[#374151]" : "hover:bg-[#F7F8F5]"}`}
+          >
             {/* Dashed Circle */}
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-dashed border-[#ACC822]">
               <FiPlus size={18} className="text-[#ACC822]" />
             </div>
 
             {/* Text */}
-            <h3 className="text-[14px] font-semibold text-[#1F2937]">
+            <h3
+              className={`text-[14px] font-semibold
+${darkMode ? "text-white" : "text-[#1F2937]"}`}
+            >
               Create Project
             </h3>
           </div>
