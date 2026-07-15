@@ -79,7 +79,7 @@ const Footer = () => {
                       darkMode ? "text-white" : "text-[#1B1B1B]"
                     }`}
                   >
-                    01329659900
+                    +8801329659900
                   </p>
                 </div>
               </div>

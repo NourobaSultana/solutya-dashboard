@@ -2,35 +2,36 @@ import React, { useState } from "react";
 import Navbar from "../Components/Navbar/Navbar";
 import Sidebar from "../Components/Sidebar/Sidebar";
 import Dashboard from "../Pages/Dashboard";
-import { ThemeProvider } from "../Components/ThemeProvider/ThemeProvider";
+import { useTheme } from "../Components/ThemeProvider/ThemeProvider";
 import Footer from "../Components/Footer/Footer";
 
 const DashBoardLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const { darkMode } = useTheme();
 
   return (
-    <ThemeProvider>
-      <div className="min-h-screen bg-[#E8E7EC] ">
-        <div className="w-full mx-auto">
-          <div className="grid lg:grid-cols-[304px_1fr]">
-            {/* SIDEBAR */}
-            <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
+    <div
+      className={`min-h-screen ${darkMode ? "bg-[#111827] text-white" : "bg-white text-gray-800"}`}
+    >
+      <div className="w-full mx-auto">
+        <div className="grid lg:grid-cols-[304px_1fr]">
+          {/* SIDEBAR */}
+          <Sidebar isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
-            {/* RIGHT CONTENT */}
-            <div className="min-w-0 flex flex-col ">
-              <Navbar setIsSidebarOpen={setIsSidebarOpen} />
+          {/* RIGHT CONTENT */}
+          <div className="min-w-0 flex flex-col ">
+            <Navbar setIsSidebarOpen={setIsSidebarOpen} />
 
-              <div className="px-4 ">
-                <main className="w-full  mt-4 ">
-                  <Dashboard />
-                </main>
-              </div>
+            <div className="px-4 ">
+              <main className="w-full  mt-4 ">
+                <Dashboard />
+              </main>
             </div>
           </div>
-          <Footer></Footer>
         </div>
+        <Footer></Footer>
       </div>
-    </ThemeProvider>
+    </div>
   );
 };
 
